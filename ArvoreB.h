@@ -7,21 +7,22 @@
 extern struct BTreeNode *root;
 
 struct BTreeNode {
-  int val[MAX + 1], count;
+  char *val[MAX + 1];
+  int count;
   int RRN[MAX + 1];
   struct BTreeNode *link[MAX + 1];
 };
 
-struct BTreeNode *createNode(int val, struct BTreeNode *child);
+struct BTreeNode *createNode(char *val, struct BTreeNode *child) ;
 
-void insertNode(int val, int pos, struct BTreeNode *node,struct BTreeNode *child);
+void insertNode(char *val, int pos, struct BTreeNode *node,struct BTreeNode *child);
 
-void splitNode(int val, int *pval, int pos, struct BTreeNode *node,struct BTreeNode *child, struct BTreeNode **newNode);
+void splitNode(char *val, char **pval, int pos, struct BTreeNode *node,struct BTreeNode *child, struct BTreeNode **newNode);
 
-int setValue(int val, int *pval,struct BTreeNode *node, struct BTreeNode **child);
+int setValue(char *val, char **pval,struct BTreeNode *node, struct BTreeNode **child) ;
 
-void insert(int val);
+void insert(char *val);
 
-void search(int val, int *pos, struct BTreeNode *myNode);
+void search(char *val, int *pos, struct BTreeNode *myNode);
 
-void traversal(struct BTreeNode *myNode);
+void traversal(struct BTreeNode *myNode) ;

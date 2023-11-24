@@ -74,15 +74,18 @@ int main()
 			// Initialize the B-tree root node
 			root = NULL;
 
+		
 			// Insert values into the B-tree
-			insert(10);
-			insert(20);
-			insert(5);
-			insert(30);
-			insert(7);
-			insert(3);
-			insert(15);
-			insert(25);
+			char *valueToInsert = "apple";
+    		insert(valueToInsert);
+			valueToInsert = "banana";
+			insert(valueToInsert);
+			valueToInsert = "cherry";
+			insert(valueToInsert);
+			valueToInsert = "dragonfruit";
+			insert(valueToInsert);
+			valueToInsert = "fig";
+			insert(valueToInsert);
 
 			// Print the B-tree values in sorted order
 			printf("B-tree values in sorted order: ");
@@ -90,15 +93,15 @@ int main()
 			printf("\n");
 
 			// Search for a value in the B-tree
-			int searchVal = 20;
+			char *searchVal = "dragonfruit";
 			int pos = -1;
 			search(searchVal, &pos, root);
 			if (pos != -1) {
-				printf("%d found at position %d.\n", searchVal, pos);
+				printf("%s found at position %d.\n", searchVal, pos);
 			} else {
-				printf("%d not found in the B-tree.\n", searchVal);
+				printf("%s not found in the B-tree.\n", searchVal);
 			}
-
+			
 			return 0;
 
 		}

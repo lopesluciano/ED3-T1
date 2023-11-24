@@ -1,19 +1,21 @@
-// Searching a key on a B-tree in C
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ArvoreB.h"
 
 #define MAX 3
 #define MIN 2
 
+
 struct BTreeNode *root;
 
+// ... Rest of your functions ...
+
 // Create a node
-struct BTreeNode *createNode(int val, struct BTreeNode *child) {
+struct BTreeNode *createNode(char *val, struct BTreeNode *child) {
   struct BTreeNode *newNode;
   newNode = (struct BTreeNode *)malloc(sizeof(struct BTreeNode));
-  newNode->val[1] = val;
+  newNode->val[1] = strdup(val); // Use strdup to duplicate strings
   newNode->count = 1;
   newNode->link[0] = root;
   newNode->link[1] = child;
@@ -21,7 +23,7 @@ struct BTreeNode *createNode(int val, struct BTreeNode *child) {
 }
 
 // Insert node
-void insertNode(int val, int pos, struct BTreeNode *node,
+void insertNode(char *val, int pos, struct BTreeNode *node,
         struct BTreeNode *child) {
   int j = node->count;
   while (j > pos) {
@@ -29,13 +31,13 @@ void insertNode(int val, int pos, struct BTreeNode *node,
     node->link[j + 1] = node->link[j];
     j--;
   }
-  node->val[j + 1] = val;
+  node->val[j + 1] = strdup(val);
   node->link[j + 1] = child;
   node->count++;
 }
 
 // Split node
-void splitNode(int val, int *pval, int pos, struct BTreeNode *node,
+void splitNode(char *val, char **pval, int pos, struct BTreeNode *node,
          struct BTreeNode *child, struct BTreeNode **newNode) {
   int median, j;
 
@@ -65,7 +67,7 @@ void splitNode(int val, int *pval, int pos, struct BTreeNode *node,
 }
 
 // Set the value
-int setValue(int val, int *pval,
+int setValue(char *val, char **pval,
            struct BTreeNode *node, struct BTreeNode **child) {
   int pos;
   if (!node) {
@@ -74,13 +76,13 @@ int setValue(int val, int *pval,
     return 1;
   }
 
-  if (val < node->val[1]) {
+  if (strcmp(val, node->val[1]) < 0) {
     pos = 0;
   } else {
     for (pos = node->count;
-       (val < node->val[pos] && pos > 1); pos--)
+       (strcmp(val, node->val[pos]) < 0 && pos > 1); pos--)
       ;
-    if (val == node->val[pos]) {
+    if (strcmp(val, node->val[pos]) == 0) {
       printf("Duplicates are not permitted\n");
       return 0;
     }
@@ -97,8 +99,9 @@ int setValue(int val, int *pval,
 }
 
 // Insert the value
-void insert(int val) {
-  int flag, i;
+void insert(char *val) {
+  int flag;
+  char *i;
   struct BTreeNode *child;
 
   flag = setValue(val, &i, root, &child);
@@ -107,19 +110,19 @@ void insert(int val) {
 }
 
 // Search node
-void search(int val, int *pos, struct BTreeNode *myNode) {
+void search(char *val, int *pos, struct BTreeNode *myNode) {
   if (!myNode) {
     return;
   }
 
-  if (val < myNode->val[1]) {
+  if (strcmp(val, myNode->val[1]) < 0) {
     *pos = 0;
   } else {
     for (*pos = myNode->count;
-       (val < myNode->val[*pos] && *pos > 1); (*pos)--)
+       (strcmp(val, myNode->val[*pos]) < 0 && *pos > 1); (*pos)--)
       ;
-    if (val == myNode->val[*pos]) {
-      printf("%d is found", val);
+    if (strcmp(val, myNode->val[*pos]) == 0) {
+      printf("%s is found", val);
       return;
     }
   }
@@ -128,13 +131,13 @@ void search(int val, int *pos, struct BTreeNode *myNode) {
   return;
 }
 
-// Traverse then nodes
+// Traverse the nodes
 void traversal(struct BTreeNode *myNode) {
   int i;
   if (myNode) {
     for (i = 0; i < myNode->count; i++) {
       traversal(myNode->link[i]);
-      printf("%d ", myNode->val[i + 1]);
+      printf("%s ", myNode->val[i + 1]);
     }
     traversal(myNode->link[i]);
   }
