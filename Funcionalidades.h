@@ -31,5 +31,6 @@ void Verifica_se_Nulo(int int_x);
 void leCabecalho(char *nomeArquivo, Cabecalho *cabecalho);
 void imprimeCampos(char *str1, int int_a, int int_b, int int_f, char *str2, int int_c);
 
+
 #endif
 

@@ -71,37 +71,13 @@ int main()
 	
 		case 5:
 
-			// Initialize the B-tree root node
-			root = NULL;
-
-		
-			// Insert values into the B-tree
-			char *valueToInsert = "apple";
-    		insert(valueToInsert);
-			valueToInsert = "banana";
-			insert(valueToInsert);
-			valueToInsert = "cherry";
-			insert(valueToInsert);
-			valueToInsert = "dragonfruit";
-			insert(valueToInsert);
-			valueToInsert = "fig";
-			insert(valueToInsert);
-
-			// Print the B-tree values in sorted order
-			printf("B-tree values in sorted order: ");
-			traversal(root);
-			printf("\n");
-
-			// Search for a value in the B-tree
-			char *searchVal = "dragonfruit";
-			int pos = -1;
-			search(searchVal, &pos, root);
-			if (pos != -1) {
-				printf("%s found at position %d.\n", searchVal, pos);
-			} else {
-				printf("%s not found in the B-tree.\n", searchVal);
-			}
+			scanf("%s", nomeArquivoOrigem);
+			scanf("%s", nomeArquivoDestino);
 			
+			cria_ArvoreB(nomeArquivoOrigem, nomeArquivoDestino);
+
+			binarioNaTela(nomeArquivoDestino);
+
 			return 0;
 
 		}
