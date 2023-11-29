@@ -47,7 +47,7 @@ int main()
 
 			break;
 
-		case 3:
+		case 6:
 
 			scanf("%s", nomeArquivoOrigem);
 			scanf("%s", nomeArquivoDestino);
@@ -80,12 +80,11 @@ int main()
 
 			break;
 
-		case 6:
+		case 7:
 
-			int n;
 			scanf("%s", nomeArquivoOrigem);
 			scanf("%s", nomeArquivoDestino);
-			scanf("%d" , &n);
+
 			scanf("%s", nomeChave);
 
 			pesquisa_tecnologia_arvoreb(nomeArquivoOrigem, nomeArquivoDestino, nomeChave);

@@ -147,7 +147,7 @@ void pesquisa_tecnologia_arvoreb(char *nomeArquivo, char *nomeArquivoIndice,  ch
     //le o cabecalho do arquivo de indice e checa inconsistencia
     fread(&Cabecalho_Indice.status, sizeof(char), 1, f_arvoreb);
     if(Cabecalho_Indice.status != '1'){
-        printf("Falha no processamento do arquivo.");
+        printf("Falha no processamento do arquivo.\n");
         return;
     }   
     fread(&Cabecalho_Indice.noRaiz, sizeof(int), 1, f_arvoreb);
