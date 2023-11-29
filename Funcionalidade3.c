@@ -11,11 +11,19 @@ void PesquisaCampo(char *nomeArquivo, char *nomeArquivoIndice,Cabecalho *cabecal
     scanf("%49s", nomeCampo);
     scan_quote_string(valorCampo);
 
+    //essa parte foi adicionada para tornar a funcionalidade 3 a funcionalidade 6, o resto do codigo eh identico ao utilizado no trabalho introdutorio.
     if(strcmp(nomeCampo, "nomeTecnologiaOrigemDestino") == 0){
+        //chama a funcao de pesquisa por chaves do indice arvore B
         pesquisa_tecnologia_arvoreb(nomeArquivo, nomeArquivoIndice, valorCampo);
-
         return;
     }
+
+
+
+
+
+
+
     FILE *arquivo = fopen(nomeArquivo, "rb");
     if (arquivo == NULL) {
         printf("Falha no processamento do arquivo.\n");

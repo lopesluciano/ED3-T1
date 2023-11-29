@@ -18,18 +18,16 @@ typedef struct {
   int nroChavesIndexadas; // 0 <= x <= 4
   int RRNdoNO; // RRN deste no
   int P1; // "ponteiro" para o no filho
-  char C1; // Chave de Busca
+  char C1[55]; // Chave de Busca
   int Pr1; // "ponteiro" para a referencia no arquivo de dados
   int P2;
-  char C2;
+  char C2[55];
   int Pr2;
   int P3;
-  char C3;
+  char C3[55];
   int Pr3;
   int P4;
-  int C4;
-  int Pr4;
-  int P5;
+
 } Pagina;
 
 typedef struct{

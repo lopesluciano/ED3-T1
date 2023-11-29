@@ -5,22 +5,15 @@
 #include "Funcionalidades.h"
 #include "datatypesdef.h"
 
-int buscaRecursivaPorChave(char *nomeChave, FILE *f_arvoreb, int RRN){
+Pagina leNo(FILE *f_arvoreb, int RRN){
 
-    if (RRN == -1){
-        return -1;
-    }
+        Pagina no;
 
-    //posiciona o ponteiro no "no" requerido
-    fseek(f_arvoreb, 205*(RRN+1), SEEK_SET);
+        char C1[55];
+        char C2[55];
+        char C3[55];
 
-    Pagina no;
-
-    char C1[55];
-    char C2[55];
-    char C3[55];
-
-    //leitura do no *modularizar uma funcao le no*
+        //leitura do no *modularizar uma funcao le no*
             fread(&no.nroChavesIndexadas, sizeof(int), 1, f_arvoreb);
         //  printf("no chaves indexadas: %d\n", no.nroChavesIndexadas);
             fread(&no.alturaNo, sizeof(int), 1, f_arvoreb);
@@ -78,22 +71,38 @@ int buscaRecursivaPorChave(char *nomeChave, FILE *f_arvoreb, int RRN){
                 fread(&no.P4, sizeof(int), 1, f_arvoreb);
                 i = 0;
 
+                strcpy(no.C1, C1);
+                strcpy(no.C2, C2);
+                strcpy(no.C3, C3);
 
-        
+
+                return no;
+}
+
+int buscaRecursivaPorChave(char *nomeChave, FILE *f_arvoreb, int RRN){
+
+    //verifica se o RRN eh valido
+    if (RRN == -1){
+        return -1;
+    }
+
+    //posiciona o ponteiro no "no" requerido
+    fseek(f_arvoreb, 205*(RRN+1), SEEK_SET);
+
+    //struct 
+    Pagina no;
+
+    //funcao que le os campos do no do arquivo indice
+    no = leNo(f_arvoreb, RRN);
 
     //vetores para facilitar a busca usando loops
     int P[4] = {no.P1, no.P2, no.P3 , no.P4};
     char C[3][64] ;
-    strcpy(C[0], C1);
-    strcpy(C[1], C2);
-    strcpy(C[2], C3);
+    strcpy(C[0], no.C1);
+    strcpy(C[1], no.C2);
+    strcpy(C[2], no.C3);
     int Pr[3] = {no.Pr1, no.Pr2 , no.Pr3};
 
-/*
-    printf("%d\n", no.P1);
-    printf("%s\n", C[0]);
- */
-    //return;
 
     //verificar se a chave esta no no atual
     for(int j = 0; j<no.nroChavesIndexadas; j++){
@@ -103,31 +112,20 @@ int buscaRecursivaPorChave(char *nomeChave, FILE *f_arvoreb, int RRN){
                 return Pr[j];
             }
             else{
-                //verifica se o no eh folha, caso seja o registro nao existe
-                // if(no.alturaNo == 0){
-                //     printf("Registro Inexistente\n");
-                //     return NULL;
-                // }
-                //retorna a busca com o ponteiro do atual
-                
+                //retorna a busca com o ponteiro do atual      
                 return buscaRecursivaPorChave(nomeChave, f_arvoreb, P[j]);
                 
             }   
         }
         else
+            //caso contrario, vai para a proxima iteracao
             continue;
     }
 
 
     //se chegou aqui, a chave eh maior que todas as outras
-    //verifica se o no eh folha, caso seja o registro nao existe
-    // if(no.alturaNo == 0){
-    //          printf("Registro Inexistente\n");
-    //          return NULL;
-    // }
     //retorna a busca com o ultimo ponteiro
     return buscaRecursivaPorChave(nomeChave, f_arvoreb, P[no.nroChavesIndexadas]);
-   
 }
 
 void pesquisa_tecnologia_arvoreb(char *nomeArquivo, char *nomeArquivoIndice,  char *nomeChave){
