@@ -14,7 +14,7 @@ void cria_ArvoreB(char *nomeArquivo, char *NomeArquivoIndice){
     if (f_tecnologia == NULL) {
         printf("Falha no processamento do arquivo.\n");
         return;
-    }
+    }   
 
     //structs
     Cabecalho tecnologia_cabecalho; //struct de cabecalho

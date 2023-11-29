@@ -425,7 +425,7 @@ long long busca_recursiva(int rrn_atual, int chave_buscada, FILE *file){
         }
     }
     else if(chave_esta_na_posicao(no.C2, chave_buscada)){
-        //se a chave estiber aqui, retorna a referencia
+        //se a chave estiver aqui, retorna a referencia
         //se nao estiver, retorna o no filho
         if (chave_buscada == no.C2) {
         return no.Pr2;

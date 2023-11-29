@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "datatypesdef.h": "c"
+        "datatypesdef.h": "c",
+        "stdlib.h": "c"
     }
 }

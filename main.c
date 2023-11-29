@@ -14,7 +14,7 @@
 int main()
 {
 	int op;
-	char nomeArquivoOrigem[100], nomeArquivoDestino[100];
+	char nomeArquivoOrigem[100], nomeArquivoDestino[100], nomeChave[55];
 	Cabecalho cabecalho;
 	Lista *listaDados = criarLista();
 
@@ -49,13 +49,13 @@ int main()
 
 		case 3:
 
-			i = 0;
 			scanf("%s", nomeArquivoOrigem);
-			scanf("%d", &n);
+			scanf("%s", nomeArquivoDestino);
+			scanf("%d" , &n);
 
 
 			while(i < n){
-				PesquisaCampo(nomeArquivoOrigem, &cabecalho);
+				PesquisaCampo(nomeArquivoOrigem, nomeArquivoDestino, &cabecalho);
 				i++;
 			}
 
@@ -74,11 +74,21 @@ int main()
 			scanf("%s", nomeArquivoOrigem);
 			scanf("%s", nomeArquivoDestino);
 			
-			cria_ArvoreB(nomeArquivoOrigem, nomeArquivoDestino);
+			//cria_ArvoreB(nomeArquivoOrigem, nomeArquivoDestino);
 
 			binarioNaTela(nomeArquivoDestino);
 
-			return 0;
+			break;
+
+		case 6:
+
+			int n;
+			scanf("%s", nomeArquivoOrigem);
+			scanf("%s", nomeArquivoDestino);
+			scanf("%d" , &n);
+			scanf("%s", nomeChave);
+
+			pesquisa_tecnologia_arvoreb(nomeArquivoOrigem, nomeArquivoDestino, nomeChave);
 
 		}
 

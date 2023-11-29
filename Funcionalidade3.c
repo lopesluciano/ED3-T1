@@ -1,8 +1,9 @@
 #include "Funcionalidades.h"
 #include "datatypesdef.h"
 #include "lista.h"
+#include "ArvoreB.h"
 
-void PesquisaCampo(char *nomeArquivo, Cabecalho *cabecalho ){
+void PesquisaCampo(char *nomeArquivo, char *nomeArquivoIndice, Cabecalho *cabecalho ){
     leCabecalho(nomeArquivo, cabecalho);
 
     char nomeCampo[50];
@@ -10,6 +11,11 @@ void PesquisaCampo(char *nomeArquivo, Cabecalho *cabecalho ){
 	scanf("%49s", nomeCampo);
 	scan_quote_string(valorCampo);
 
+    //modificao para atender a funcionalidade 6
+    if(strcmp(nomeCampo, "nomeTecnologiaOrigemDestino") == 0){  
+        pesquisa_tecnologia_arvoreb(nomeArquivo, nomeArquivoIndice, valorCampo);
+        return;  
+    }
 
     FILE *arquivo = fopen(nomeArquivo, "rb");
     if (arquivo == NULL) {

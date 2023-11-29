@@ -9,25 +9,26 @@ typedef struct {
   char status;
   int noRaiz; //valor inicial eh -1
   int RRNproxNO;
-  char lixo[68];
+  char lixo[196];
 } header;
 
 typedef struct {
   char folha; 
+  int alturaNo;
   int nroChavesIndexadas; // 0 <= x <= 4
   int RRNdoNO; // RRN deste no
   int P1; // "ponteiro" para o no filho
-  int C1; // Chave de Busca
-  long long Pr1; // "ponteiro" para a referencia no arquivo de dados
+  char C1; // Chave de Busca
+  int Pr1; // "ponteiro" para a referencia no arquivo de dados
   int P2;
-  int C2;
-  long long Pr2;
+  char C2;
+  int Pr2;
   int P3;
-  int C3;
-  long long Pr3;
+  char C3;
+  int Pr3;
   int P4;
   int C4;
-  long long Pr4;
+  int Pr4;
   int P5;
 } Pagina;
 
@@ -43,4 +44,4 @@ long long busca_arvoreb(int chave, FILE *file);
 
 void cria_ArvoreB(char *nomeArquivo, char *NomeArquivoIndice);
 
-void pesquisa_tecnologia_arvoreb(char *nomeArquivo, char *nomeArquivoIndice, char *nomeTecnologia);
+void pesquisa_tecnologia_arvoreb(char *nomeArquivo, char *nomeArquivoIndice, char *nomeChave);

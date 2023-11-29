@@ -25,7 +25,7 @@ void parseInt(char*, int*, int*);
 
 void PesquisaRRN(char *nomeArquivo, Cabecalho*, int RRN);
 void imprimeRegistro(char *nomeArquivo, Cabecalho *cabecalho);
-void PesquisaCampo(char *nomeArquivo, Cabecalho *cabecalho);
+void PesquisaCampo(char *nomeArquivo, char *nomeArquivoIndice, Cabecalho *cabecalho );
 
 void Verifica_se_Nulo(int int_x);
 void leCabecalho(char *nomeArquivo, Cabecalho *cabecalho);
