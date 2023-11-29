@@ -39,7 +39,7 @@ typedef struct{
 } ArvoreB;
 
 void insere_arvoreB(int chave, long long referencia, FILE *file, int *raiz_rrn, int *rrn_livre);
-
+  
 long long busca_arvoreb(int chave, FILE *file);
 
 void cria_ArvoreB(char *nomeArquivo, char *NomeArquivoIndice);

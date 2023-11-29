@@ -97,7 +97,6 @@ int buscaRecursivaPorChave(char *nomeChave, FILE *f_arvoreb, int RRN){
 
     //verificar se a chave esta no no atual
     for(int j = 0; j<no.nroChavesIndexadas; j++){
-        printf("%s\n", C[j]);
         if(strcmp(nomeChave, C[j]) <= 0){
             if(strcmp(nomeChave , C[j]) == 0){
                 //achou a chave, retorna rrn
@@ -148,11 +147,11 @@ void pesquisa_tecnologia_arvoreb(char *nomeArquivo, char *nomeArquivoIndice,  ch
     fread(&Cabecalho_Indice.status, sizeof(char), 1, f_arvoreb);
     if(Cabecalho_Indice.status != '1'){
         printf("Falha no processamento do arquivo.\n");
-        return;
+        fclose(f_arvoreb);
+        exit(0);
     }   
     fread(&Cabecalho_Indice.noRaiz, sizeof(int), 1, f_arvoreb);
-    printf("No Raiz: %d\n", Cabecalho_Indice.noRaiz);    
-    
+
     //chama a funcao recursiva de busca, comecando pelo no raiz
     int RRN = buscaRecursivaPorChave(nomeChave, f_arvoreb, Cabecalho_Indice.noRaiz);
   

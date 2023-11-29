@@ -12,10 +12,10 @@ void PesquisaCampo(char *nomeArquivo, char *nomeArquivoIndice,Cabecalho *cabecal
     scan_quote_string(valorCampo);
 
     if(strcmp(nomeCampo, "nomeTecnologiaOrigemDestino") == 0){
-        pesquisa_tecnologia_arvoreb(nomeArquivo, nomeArquivoIndice, valorCampo  );
+        pesquisa_tecnologia_arvoreb(nomeArquivo, nomeArquivoIndice, valorCampo);
+
         return;
     }
-
     FILE *arquivo = fopen(nomeArquivo, "rb");
     if (arquivo == NULL) {
         printf("Falha no processamento do arquivo.\n");
