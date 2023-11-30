@@ -74,9 +74,9 @@ int main()
 			scanf("%s", nomeArquivoOrigem);
 			scanf("%s", nomeArquivoDestino);
 			
-			//cria_ArvoreB(nomeArquivoOrigem, nomeArquivoDestino);
+			cria_ArvoreB(nomeArquivoOrigem, nomeArquivoDestino);
 
-			binarioNaTela(nomeArquivoDestino);
+		//	binarioNaTela(nomeArquivoDestino);
 
 			break;
 

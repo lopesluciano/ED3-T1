@@ -1,9 +1,14 @@
+SRC = ./src
+INCLUDE = ./include
+OBJ = ./obj
+BIN = ./bin
+
 all:
-	gcc -Wall  -g3 main.c Funcionalidades.c lista.c Funcionalidade1.c Funcionalidade2.c Funcionalidade3.c Funcionalidade4.c  Funcionalidade6.c  -o programaTrab
+	gcc -Wall -g3 $(SRC)/*.c -I $(INCLUDE) main.c -o $(BIN)/programaTrab
 
 run:
-	./programaTrab
+	$(BIN)/programaTrab
 
 test:
-	gcc -Wall  -g3 main.c Funcionalidades.c lista.c Funcionalidade1.c Funcionalidade2.c Funcionalidade3.c Funcionalidade4.c  Funcionalidade6.c  -o programaTrab
-	./programaTrab
+	gcc -Wall -g3 $(SRC)/*.c -I $(INCLUDE) main.c -o $(BIN)/programaTrab
+	$(BIN)/programaTrab

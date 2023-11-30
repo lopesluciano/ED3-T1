@@ -15,7 +15,7 @@ typedef struct {
 typedef struct {
   char folha; 
   int alturaNo;
-  int nroChavesIndexadas; // 0 <= x <= 4
+  int nroChavesIndexadas; // 0 <= x <= 4  
   int RRNdoNO; // RRN deste no
   int P1; // "ponteiro" para o no filho
   char C1[55]; // Chave de Busca

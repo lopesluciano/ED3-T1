@@ -1,4 +1,4 @@
-#include <stdio.h>
+ #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "ArvoreB.h"
@@ -23,6 +23,7 @@ void cria_ArvoreB(char *nomeArquivo, char *NomeArquivoIndice){
     //le o cabecalho do arquivo de registro e verifica se eh inconsistente
     fread(&tecnologia_cabecalho.status, sizeof(char), 1, f_tecnologia);
     if(tecnologia_cabecalho.status != '1'){
+        printf("Falha no processamento do arquivo.\n");
         return;
     }
 
@@ -37,11 +38,11 @@ void cria_ArvoreB(char *nomeArquivo, char *NomeArquivoIndice){
     //struct de cabecalho 
     header arvoreb_cabecalho;
 
-    //define os valores iniciais do cabecalho
+    //define os valores iniciais do cabecalhoz
     arvoreb_cabecalho.status = '0';
     arvoreb_cabecalho.noRaiz = -1;
     arvoreb_cabecalho.RRNproxNO = 0;
-    memset(&(arvoreb_cabecalho.lixo), '@', 68); //verificar se necessario 
+    memset(&(arvoreb_cabecalho.lixo), '$', 195); //verificar se necessario 
 
     //escreve o status da arvore b no disco
     fwrite(&arvoreb_cabecalho.status, sizeof(char), 1, f_arvoreb);
@@ -73,11 +74,11 @@ void cria_ArvoreB(char *nomeArquivo, char *NomeArquivoIndice){
         fseek(f_tecnologia, 74, SEEK_CUR);
 
         //conversao para inteiro
+        printf("chegou aqui"); 
 
-
-        //insere a tecnologia na arvore
-        insere_arvoreB(tecnologia_dados.peso, byte_offset, f_arvoreb, &arvoreb_cabecalho.noRaiz, &arvoreb_cabecalho.RRNproxNO);
-
+                //insere a tecnologia na arvore
+                insere_arvoreB(tecnologia_dados.peso, byte_offset, f_arvoreb, &arvoreb_cabecalho.noRaiz, &arvoreb_cabecalho.RRNproxNO);
+    
         //incrementa o indice
         indice++;
     }

@@ -7,8 +7,10 @@
 
 #define INVALID -1
 
+char LIXO[55] = {'$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'};
+
 typedef struct {
-    int chave;
+    char chave[55];
     long long referencia;
     int rrn_no_filho;
 } info_promocao;
@@ -56,9 +58,6 @@ void fwrite_no(Pagina no, FILE *file){
     fwrite(&no.C3, sizeof(int), 1, file);
     fwrite(&no.Pr3, sizeof(long long), 1, file);
     fwrite(&no.P4, sizeof(int), 1, file);
-    fwrite(&no.C4, sizeof(int), 1, file);
-    fwrite(&no.Pr4, sizeof(long long), 1, file);
-    fwrite(&no.P5, sizeof(int), 1, file);
 }
  
 Pagina fread_no(int RRN, FILE *file){
@@ -80,17 +79,13 @@ Pagina fread_no(int RRN, FILE *file){
     fread(&no.C3, sizeof(int), 1, file);
     fread(&no.Pr3, sizeof(long long), 1, file);
     fread(&no.P4, sizeof(int), 1, file);
-    fread(&no.C4, sizeof(int), 1, file);
-    fread(&no.Pr4, sizeof(long long), 1, file);
-    fread(&no.P5, sizeof(int), 1, file);
-
     return no;
 }
 
 // verifica se o no contem a chave
 // apenas para atalho, posso usar a funcao so pra nao precisar repetir a expressao 
 int no_contem_chave(Pagina no, int chave){
-    return no.C1 == chave || no.C2 == chave || no.C3 == chave || no.C4 ==chave;
+    return no.C1 == chave || no.C2 == chave || no.C3 == chave;
 }
 
 //compara uma chave nova a uma chave de no e verifica
@@ -104,159 +99,118 @@ info_promocao divide(info_promocao inserido, Pagina no_atual, FILE *file, int *r
 //pagina de disco porem com um ponteiro extra, filho e chave
     struct pagina_maior{
         int P1; // "ponteiro para o no filho"
-        int C1; // chave de busca
+        int C1[55]; // chave de busca
         long long Pr1; //ponteiro pra referecia de dados
         int P2;
-        int C2;
+        int C2[55];
         long long Pr2;
         int P3;
-        int C3;
+        int C3[55];
         long long Pr3;
         int P4;
-        int C4;
+        int C4[55];
         long long Pr4;
         int P5;
-        int C5;
-        long long Pr5;
-        int P6;
+
     };
     struct pagina_maior no_maior;
 
     if(inserido.chave < no_atual.C1){
         no_maior.P1 = no_atual.P1;
 
-        no_maior.C1 = inserido.chave;
+        strcpy(no_maior.C1, inserido.chave);
         no_maior.Pr1 = inserido.referencia;
         no_maior.P2 = inserido.rrn_no_filho;
 
-        no_maior.C2 = no_atual.C1;
+        strcpy(no_maior.C2, no_atual.C1);
         no_maior.Pr2 = no_atual.Pr1;
         no_maior.P3 = no_atual.P2;
 
-        no_maior.C3 = no_atual.C2;
+        strcpy(no_maior.C3, no_atual.C2);
         no_maior.Pr3 = no_atual.Pr2;
         no_maior.P4 = no_atual.P3;
 
-        no_maior.C4 = no_atual.C3;
+        strcpy(no_maior.C4, no_atual.C3);
         no_maior.Pr4 = no_atual.Pr3;
         no_maior.P5 = no_atual.P4;
 
-        no_maior.C5 = no_atual.C4;
-        no_maior.Pr5 = no_atual.Pr4;
-        no_maior.P6 = no_atual.P5;
     }
 
     if(inserido.chave < no_atual.C2){
         no_maior.P1 = no_atual.P1;
 
-        no_maior.C1 = no_atual.C1;
+        strcpy(no_maior.C1, no_atual.C1);
         no_maior.Pr1 = no_atual.Pr1;
         no_maior.P2 = no_atual.P2;
 
-        no_maior.C2 = inserido.chave;
+        strcpy(no_maior.C2, inserido.chave);
         no_maior.Pr2 = inserido.referencia;
         no_maior.P2 = inserido.rrn_no_filho;
 
-        no_maior.C3 = no_atual.C2;
+        strcpy(no_maior.C3, no_atual.C2);
         no_maior.Pr3 = no_atual.Pr2;
         no_maior.P4 = no_atual.P3;
 
-        no_maior.C4 = no_atual.C3;
+        strcpy(no_maior.C4, no_atual.C3);
         no_maior.Pr4 = no_atual.Pr3;
         no_maior.P5 = no_atual.P4;
 
-        no_maior.C5 = no_atual.C4;
-        no_maior.Pr5 = no_atual.Pr4;
-        no_maior.P6 = no_atual.P5;
     }
 
     if(inserido.chave < no_atual.C3){
         no_maior.P1 = no_atual.P1;
 
-        no_maior.C1 = no_atual.C1;
+        strcpy(no_maior.C1, no_atual.C1);
         no_maior.Pr1 = no_atual.Pr1;
         no_maior.P2 = no_atual.P2;
 
-        no_maior.C2 = no_atual.C2;
+        strcpy(no_maior.C1, no_atual.C2);
         no_maior.Pr2 = no_atual.Pr2;
         no_maior.P3 = no_atual.P3;
 
-        no_maior.C3 = inserido.chave;
+        strcpy(no_maior.C3, inserido.chave);
         no_maior.Pr3 = inserido.referencia;
         no_maior.P4 = inserido.rrn_no_filho;
 
-        no_maior.C4 = no_atual.C3;
+        strcpy(no_maior.C4, no_atual.C3);
         no_maior.Pr4 = no_atual.Pr3;
         no_maior.P5 = no_atual.P4;
 
-        no_maior.C5 = no_atual.C4;
-        no_maior.Pr5 = no_atual.Pr4;
-        no_maior.P6 = no_atual.P5;
     }
 
-    if(inserido.chave < no_atual.C4){
-        no_maior.P1 = no_atual.P1;
-
-        no_maior.C1 = no_atual.C1;
-        no_maior.Pr1 = no_atual.Pr1;
-        no_maior.P2 = no_atual.P2;
-
-        no_maior.C2 = no_atual.C2;
-        no_maior.Pr2 = no_atual.Pr2;
-        no_maior.P3 = no_atual.P3;
-
-        no_maior.C3 = no_atual.C3;
-        no_maior.Pr3 = no_atual.Pr3;
-        no_maior.P4 = no_atual.P4;
-
-        no_maior.C4 = inserido.chave;
-        no_maior.Pr4 = inserido.referencia;
-        no_maior.P5 = inserido.rrn_no_filho;
-
-        no_maior.C5 = no_atual.C4;
-        no_maior.Pr5 = no_atual.Pr4;
-        no_maior.P6 = no_atual.P5;
-    }
 
     else{
         no_maior.P1 = no_atual.P1;
 
-        no_maior.C1 = no_atual.C1;
+        strcpy(no_maior.C1, no_atual.C1);
         no_maior.Pr1 = no_atual.Pr1;
         no_maior.P2 = no_atual.P2;
 
-        no_maior.C2 = no_atual.C2;
+        strcpy(no_maior.C2, no_atual.C2);
         no_maior.Pr2 = no_atual.Pr2;
         no_maior.P3 = no_atual.P3;
 
-        no_maior.C3 = no_atual.C3;
+        strcpy(no_maior.C3, no_atual.C3);
         no_maior.Pr3 = no_atual.Pr3;
         no_maior.P4 = no_atual.P4;
 
-        no_maior.C4 = no_atual.C4;
-        no_maior.Pr4 = no_atual.Pr4;
-        no_maior.P5 = no_atual.P5;
-
-        no_maior.C5 = inserido.chave;
-        no_maior.Pr5 = inserido.referencia;
-        no_maior.P6 = inserido.rrn_no_filho;
+        strcpy(no_maior.C4, inserido.chave);
+        no_maior.Pr4 = inserido.referencia;
+        no_maior.P5 = inserido.rrn_no_filho;
     }
 
     // dados do no atual
-    no_atual.nroChavesIndexadas = 2;
+    no_atual.nroChavesIndexadas = 2; //olhar isso depois
     no_atual.P1                 = no_maior.P1;
-    no_atual.C1                 = no_maior.C1;
+    strcpy(no_atual.C1, no_maior.C1);
     no_atual.Pr1                = no_maior.Pr1;
     no_atual.P2                 = no_maior.P2;
-    no_atual.C2                 = no_maior.C2;
+    strcpy(no_atual.C2, no_maior.C2);
     no_atual.Pr2                = no_maior.Pr2;
     no_atual.P3                 = no_maior.P3;
-    no_atual.C3                 = INVALID;
+    strcpy(no_atual.C1, LIXO);
     no_atual.Pr3                = INVALID;
     no_atual.P4                 = INVALID;
-    no_atual.C4                 = INVALID;
-    no_atual.Pr4                = INVALID;
-    no_atual.P5                 = INVALID;
 
     // dados do novo no
     Pagina novo_no;
@@ -264,18 +218,14 @@ info_promocao divide(info_promocao inserido, Pagina no_atual, FILE *file, int *r
     novo_no.nroChavesIndexadas = 2;
     novo_no.RRNdoNO            = *rrn_livre;
     novo_no.P1                 = no_maior.P4;
-    novo_no.C1                 = no_maior.C4;
+    strcpy(novo_no.C1, no_maior.C4);
     novo_no.Pr1                = no_maior.Pr4;
     novo_no.P2                 = no_maior.P5;
-    novo_no.C2                 = no_maior.C5;
-    novo_no.Pr2                = no_maior.Pr5;
-    novo_no.P3                 = no_maior.P6;
-    novo_no.C3                 = INVALID;
-    novo_no.Pr3                = INVALID;
-    novo_no.P4                 = INVALID;
-    novo_no.C4                 = INVALID;
-    novo_no.Pr4                = INVALID;
-    novo_no.P5                 = INVALID;
+    strcpy(novo_no.C1, LIXO);
+    novo_no.Pr2                = INVALID;
+    novo_no.P3                 = INVALID;
+
+
 
     //reescreve o no atual
     fwrite_no(no_atual, file);
@@ -313,10 +263,8 @@ info_promocao insercao_recursiva(int rrn_atual, int chave_inserido, long long re
         rrn_filho = no.P2;
     else if(chave_esta_na_posicao(no.C3, chave_inserido))
         rrn_filho = no.P3;
-    else if(chave_esta_na_posicao(no.C4, chave_inserido))
-        rrn_filho = no.P4;
     else
-        rrn_filho = no.P5;
+        rrn_filho = no.P4;
     
 
     info_promocao promocao = insercao_recursiva(rrn_filho, chave_inserido, referencia_inserido, file, rrn_livre); 
@@ -333,20 +281,17 @@ info_promocao insercao_recursiva(int rrn_atual, int chave_inserido, long long re
     //se nao eh necessaria divisao insere a chave promovida ao no atual
     if(chave_esta_na_posicao(no.C1, promocao.chave)){
         //move as chaves 1 posicao para frente
-        no.C4  = no.C3;
-        no.Pr4 = no.Pr3;
-        no.P5  = no.P4;
 
-        no.C3  = no.C2;
+        strcpy(no.C1, no.C2);
         no.Pr3 = no.Pr2;
         no.P4  = no.P3;
 
-        no.C2  = no.C1;
+        strcpy(no.C2, no.C1);
         no.Pr2 = no.Pr1;
         no.P3  = no.P2;
 
         // e insere a chave na posicao 1
-        no.C1  = promocao.chave;
+        strcpy(no.C1, promocao.chave);
         no.Pr1 = promocao.referencia;
         no.P2  = promocao.rrn_no_filho;
     }
@@ -354,39 +299,23 @@ info_promocao insercao_recursiva(int rrn_atual, int chave_inserido, long long re
     //se a chave for entrar na posicao 2
     else if(chave_esta_na_posicao(no.C2, promocao.chave)){
         //move as chaves 1 posicao para frente
-        no.C4  = no.C3;
-        no.Pr4 = no.Pr3;
-        no.P5  = no.P4;
 
-        no.C3  = no.C2;
+        strcpy(no.C3, no.C2);
         no.Pr3 = no.Pr2;
         no.P4  = no.P3;
 
         // e insere a chave na posicao 2
-        no.C2  = promocao.chave;
+        strcpy(no.C2, promocao.chave);
         no.Pr2 = promocao.referencia;
         no.P3  = promocao.rrn_no_filho;
     }
 
-    else if(chave_esta_na_posicao(no.C3, promocao.chave)){
-        //move as chaves 1 posicao para frente
-        no.C4  = no.C3;
-        no.Pr4 = no.Pr3;
-        no.P5  = no.P4;
-
-        // e insere a chave na posicao 3
-        no.C3  = promocao.chave;
-        no.Pr3 = promocao.referencia;
-        no.P4  = promocao.rrn_no_filho;
-    }
-
     else{
 
-        //e insere a chave na posicao 4
-        no.C4  = promocao.chave;
-        no.Pr4 = promocao.referencia;
+        // e insere a chave na posicao 3
+        strcpy(no.C3, promocao.chave);
+        no.Pr3 = promocao.referencia;
         no.P4  = promocao.rrn_no_filho;
-        
     }
 
     // uma nova chave foi indexada
@@ -444,18 +373,8 @@ long long busca_recursiva(int rrn_atual, int chave_buscada, FILE *file){
         return busca_recursiva(no.P3, chave_buscada, file);
         }
     }
-    else if(chave_esta_na_posicao(no.C4, chave_buscada)){
-        //se a chave estiber aqui, retorna a referencia
-        //se nao estiver, retorna o no filho
-        if (chave_buscada == no.C4) {
-        return no.Pr4;
-        } else {
-        //se nao estiver, retorna o no filho
-        return busca_recursiva(no.P4, chave_buscada, file);
-        }
-    }
     else{
-        return busca_recursiva(no.P5, chave_buscada, file);
+        return busca_recursiva(no.P4, chave_buscada, file);
     }
 }
 
@@ -470,18 +389,15 @@ void insere_arvoreB(int chave, long long referencia, FILE *file, int *raiz_rrn, 
         no.nroChavesIndexadas = 1;
         no.RRNdoNO = *rrn_livre;
         no.P1   = *raiz_rrn;
-        no.C1   = promocao.chave;
+        strcpy(no.C1, promocao.chave);
         no.Pr1  = promocao.referencia;
         no.P2   = promocao.rrn_no_filho;
-        no.C2   = INVALID;
+        strcpy(no.C1, LIXO);
         no.Pr2  = INVALID;
         no.P3   = INVALID;
-        no.C3   = INVALID;
+        strcpy(no.C1, LIXO);
         no.Pr3  = INVALID;
         no.P4   = INVALID;
-        no.C4   = INVALID;
-        no.Pr4  = INVALID;
-        no.P5   = INVALID;
 
         //escreve o novo no
         fwrite_no(no, file);

@@ -5,77 +5,85 @@
 #include "Funcionalidades.h"
 #include "datatypesdef.h"
 
+//Essa fucncao le nos
 Pagina leNo(FILE *f_arvoreb, int RRN){
 
+        //struct a ser retornada
         Pagina no;
 
+        //vetores auxiliares
         char C1[55];
         char C2[55];
         char C3[55];
 
-        //leitura do no *modularizar uma funcao le no*
+            //leitura do no 
             fread(&no.nroChavesIndexadas, sizeof(int), 1, f_arvoreb);
-        //  printf("no chaves indexadas: %d\n", no.nroChavesIndexadas);
             fread(&no.alturaNo, sizeof(int), 1, f_arvoreb);
-        //  printf("%d\n", no.alturaNo);
             fread(&no.RRNdoNO, sizeof(int), 1, f_arvoreb);
-        //  printf("%d\n", no.RRNdoNO);
+
+            //le o Ponteiro 1
             fread(&no.P1, sizeof(int), 1, f_arvoreb );
-        //  printf("%d\n", no.P1);
-            #define MAX_LENGTH 100 // Define an appropriate maximum length for your string
-                int i = 0;
+            #define MAX_LENGTH 100 // Define um comprimento apropiado para string
+                int i = 0;//i conta o tamanho da StringaDF
                 while (i < MAX_LENGTH - 1) {
-                fread(&C1[i], sizeof(char), 1, f_arvoreb);
-                if (C1[i] == '$') {
-                    break; // Exit the loop if '$' is encountered
+                    //le o campo chave, e conta o tamanho da string
+                    fread(&C1[i], sizeof(char), 1, f_arvoreb);
+                    if (C1[i] == '$') {
+                        break; // Sai do loop se lixo '$' eh encontrado
                 }
                 i++;
                 }
                 C1[i] = '\0'; // Null-terminate the string
-            // printf("%s\n" , C1);
-                
+                //Pula o lixo e posiciona o ponteiro no campo Ponteiro de Referencia
                 fseek(f_arvoreb, 54 - i , SEEK_CUR);
+                //Le o campo Ponteiro de referencia do arquivo binario
                 fread(&no.Pr1, sizeof(int), 1, f_arvoreb);
-                
-                i = 0;
+                i = 0;//Reseta o contador 
+
+                //le o Ponteiro 2
                 fread(&no.P2, sizeof(int), 1, f_arvoreb);
-            //  printf("%d\n", no.P2);
                 while (i < MAX_LENGTH - 1) {
-                fread(&C2[i], sizeof(char), 1, f_arvoreb);
-                if (C2[i] == '$') {
-                    break; // Exit the loop if '$' is encountered
+                    //le o campo chave, e conta o tamanho da string
+                    fread(&C2[i], sizeof(char), 1, f_arvoreb);
+                    if (C2[i] == '$') {
+                        break; // Sai do loop se lixo '$' eh encontrado
                 }
                 i++;
                 }
                 C2[i] = '\0'; // Null-terminate the string
-            //    printf("%s\n" , C2);
 
+                //Pula o lixo e posiciona o ponteiro no campo Ponteiro de Referencia
                 fseek(f_arvoreb, 54 - i, SEEK_CUR);
+                //le o ponteiro de referencia
                 fread(&no.Pr2, sizeof(int), 1, f_arvoreb);
-                
-                i = 0;
+                i = 0;//Reseta o contador
+
+                //le o ponteiro 3
                 fread(&no.P3, sizeof(int), 1, f_arvoreb );
                 while (i < MAX_LENGTH - 1) {
-                fread(&C3[i], sizeof(char), 1, f_arvoreb);
-                if (C3[i] == '$') {
-                    break; // Exit the loop if '$' is encountered
-                }
-                i++;
+                    //le o campo chave, e conta o tamanho da string
+                    fread(&C3[i], sizeof(char), 1, f_arvoreb);
+                    if (C3[i] == '$') {
+                        break; // Sai do loop se lixo '$' eh encontrado
+                    }
+                    i++;
                 }
                 C3[i] = '\0'; // Null-terminate the string
-            //   printf("%s\n", C3);
-                
 
+                //Pula o lixo e posiciona o ponteiro no campo Ponteiro de Referencia
                 fseek(f_arvoreb, 54 - i, SEEK_CUR);
+                //Le o ponteiro de referencia
                 fread(&no.Pr3, sizeof(int), 1, f_arvoreb);
+                //le o ponteiro 4
                 fread(&no.P4, sizeof(int), 1, f_arvoreb);
-                i = 0;
+                i = 0;//reseta o contador
 
+                //passa os valores da strings auxiliares para o struct
                 strcpy(no.C1, C1);
                 strcpy(no.C2, C2);
                 strcpy(no.C3, C3);
 
-
+                //retorna o no com os valores lidos
                 return no;
 }
 
